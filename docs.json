@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Flowyble",
+  "name": "Flowyble Documentation",
   "colors": {
     "primary": "#7C3AED",
     "light": "#A78BFA",
     "dark": "#5B21B6"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/images/favicon.png",
   "navigation": {
     "tabs": [
       {
@@ -105,10 +105,6 @@
       ]
     }
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
   "navbar": {
     "links": [
       {
@@ -127,5 +123,15 @@
       "github": "https://github.com/flowyble",
       "linkedin": "https://linkedin.com/company/flowyble"
     }
-  }
+  },
+  "background": {
+    "color": {
+      "light": "#e9ecef",
+      "dark": "#0d0b14"
+    }
+  },
+  "appearance": {
+    "default": "system"
+  },
+  "logo": "/images/120x120.png"
 }
