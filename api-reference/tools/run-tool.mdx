@@ -1,0 +1,66 @@
+---
+title: "Run Tool"
+description: "Execute a workflow tool with optional input parameters."
+---
+
+## Endpoint
+
+```
+POST /v1/tools/run/{toolId}
+```
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `toolId` | `uuid` | The ID of the tool to execute |
+
+### Headers
+
+| Header | Value |
+|--------|-------|
+| `X-API-Key` | Your API key |
+| `Content-Type` | `application/json` |
+
+### Body (optional)
+
+```json
+{
+  "inputField1": "value1",
+  "inputField2": 42
+}
+```
+
+The body is a free-form JSON object matching the tool's parameter schema. If the tool has no parameters, the body can be omitted.
+
+## Response
+
+```json
+{
+  "success": true,
+  "id": "770e8400-e29b-41d4-a716-446655440000",
+  "status": "Pending",
+  "message": "Tool run started"
+}
+```
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| `400` | Invalid request or insufficient credits |
+| `401` | Invalid or missing API key |
+| `403` | API access not enabled on your plan |
+| `404` | Tool not found |
+| `429` | Rate limit exceeded |
+
+## Example
+
+```bash
+curl -X POST https://api.flowyble.com/v1/tools/run/770e8400-e29b-41d4-a716-446655440000 \
+  -H "X-API-Key: flw_key_abc123" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/data.csv", "format": "summary"}'
+```

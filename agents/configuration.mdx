@@ -1,0 +1,70 @@
+---
+title: "Agent Configuration"
+description: "Configure LLM model, behavior prompt, tools, and execution settings."
+---
+
+## Basic settings
+
+| Field | Description | Default |
+|-------|-------------|---------|
+| **Name** | Display name for the agent | Required |
+| **Description** | Short description of what the agent does | Optional |
+| **Icon** | Bootstrap icon class for visual identification | `bi-robot` |
+| **Status** | Active, Inactive, or Archived | Active |
+
+## LLM Model
+
+Choose which language model powers your agent. Available models vary by provider:
+
+- **Azure OpenAI** — GPT-4o, GPT-4o Mini
+- **OpenAI** — GPT-4o, GPT-4 Turbo, o1, o3
+- **Anthropic** — Claude Sonnet, Claude Haiku, Claude Opus
+
+Each model has different capabilities, context windows, and credit costs. See [Billing & Credits](/billing/credits) for pricing details.
+
+## Behavior Prompt
+
+The behavior prompt is the **system message** sent to the LLM. It defines the agent's personality, instructions, and constraints. Write it as if you're briefing a human assistant.
+
+```text
+You are an expert data analyst. When given a dataset description:
+1. Identify key patterns and anomalies
+2. Suggest relevant visualizations
+3. Provide actionable insights
+
+Always cite specific data points in your analysis.
+Be concise — limit responses to 500 words.
+```
+
+<Tip>
+  Be specific about output format, constraints, and edge cases. The more precise your prompt, the more consistent the agent's behavior.
+</Tip>
+
+## Execution settings
+
+| Setting | Description | Default |
+|---------|-------------|---------|
+| **Max Steps** | Maximum tool-call iterations per run (1–12) | 8 |
+| **Conversation Memory** | Include previous messages from the same conversation | Enabled |
+| **Auto Tool Selection** | Let a ToolSelector system agent dynamically pick tools | Disabled |
+
+### Max Steps
+
+Each "step" is one LLM call that results in a tool invocation. If the agent reaches the step limit without finishing, it returns whatever output it has so far. Higher limits allow more complex multi-step reasoning but consume more credits.
+
+### Conversation Memory
+
+When enabled, the agent receives the full conversation history with each new message. This enables multi-turn interactions where the agent remembers context. Disable it for stateless, one-shot tasks to save tokens.
+
+## Knowledge Base
+
+Attach a **Knowledge Base** to give the agent access to your documents. The agent automatically gets a `SearchKnowledge` tool that performs semantic search over uploaded documents.
+
+## Attached Tools
+
+Add tools that the agent can call during execution. These can be:
+
+- **Built-in functions** — platform-provided utilities
+- **Custom tools** — workflow automations you've built
+- **Integration tools** — functions from connected services
+- **Other agents** — invoke another agent as a sub-task

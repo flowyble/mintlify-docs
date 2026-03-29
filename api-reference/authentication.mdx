@@ -1,0 +1,46 @@
+---
+title: "Authentication"
+description: "Authenticate API requests using API keys."
+---
+
+## API Keys
+
+All API requests must include an API key in the `X-API-Key` header:
+
+```bash
+curl https://api.flowyble.com/v1/agents/run/{agentId} \
+  -H "X-API-Key: your-api-key"
+```
+
+## Getting an API key
+
+<Steps>
+  <Step title="Check your plan">
+    API access requires a subscription plan with **API Access** enabled. Check your current plan in **Billing** settings.
+  </Step>
+  <Step title="Generate a key">
+    Navigate to **Settings → API Keys** in your dashboard. Click **Generate API Key**.
+  </Step>
+  <Step title="Store securely">
+    Copy the key immediately — it won't be shown again. Store it securely in your application's environment variables.
+  </Step>
+</Steps>
+
+<Warning>
+  Never expose your API key in client-side code, public repositories, or logs. Treat it like a password.
+</Warning>
+
+## How it works
+
+When you send a request with an API key:
+
+1. Flowyble validates the key and identifies your organization
+2. The request is scoped to your organization's data — you can only access your own agents, tools, and runs
+3. Credit limits are checked against your organization's balance
+4. The request is processed and rate-limited per your key
+
+## Key management
+
+- **Revoke** a key at any time from the API Keys settings page
+- **Rotate** keys regularly for security
+- Each organization can have multiple active API keys

@@ -1,97 +1,48 @@
 ---
 title: "Introduction"
-description: "Welcome to the new home for your documentation"
+description: "Flowyble is a multi-tenant AI-powered workflow automation platform. Create and run AI agents and workflow tools powered by leading LLMs."
 ---
 
-## Setting up
+## What is Flowyble?
 
-Get your documentation site up and running in minutes.
-
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
-
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
+Flowyble lets you build **AI agents** and **workflow tools** that automate complex tasks using large language models. Agents can reason, use tools, and hold multi-turn conversations — all managed through a simple web interface or REST API.
 
 <Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Create your first agent in under 5 minutes.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Core Concepts" icon="lightbulb" href="/concepts">
+    Understand agents, tools, runs, and credits.
   </Card>
 </Columns>
 
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
+## Key Features
 
 <Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
+  <Card title="AI Agents" icon="robot" href="/agents/overview">
+    Autonomous agents that reason, call tools, and deliver results — with configurable LLM models, step limits, and conversation memory.
   </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
+  <Card title="Workflow Tools" icon="wrench" href="/tools/overview">
+    Multi-step automations composed of built-in functions and integrations. Run manually, via API, or triggered by webhooks.
   </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
+  <Card title="Integrations" icon="plug" href="/integrations/overview">
+    Connect external services via OAuth2, API keys, or webhooks. Use integration tools inside your agents and workflows.
   </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
+  <Card title="REST API" icon="terminal" href="/api-reference/introduction">
+    Execute agents and tools programmatically. Authenticate with API keys, poll for results, and integrate Flowyble into your stack.
   </Card>
 </Columns>
 
-## Need inspiration?
+## How it works
 
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+<Steps>
+  <Step title="Create an Agent or Tool">
+    Define behavior prompts, choose an LLM model, attach tools and knowledge bases.
+  </Step>
+  <Step title="Run it">
+    Execute via the dashboard, chat interface, API call, or webhook trigger.
+  </Step>
+  <Step title="Get results">
+    View step-by-step execution, token usage, and final output in real time via SignalR or by polling the API.
+  </Step>
+</Steps>

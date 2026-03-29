@@ -1,0 +1,71 @@
+---
+title: "Get Run Status"
+description: "Check the current status of an agent run."
+---
+
+## Endpoint
+
+```
+GET /v1/agents/run/{agentRunId}/status
+```
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `agentRunId` | `uuid` | The ID of the agent run |
+
+### Headers
+
+| Header | Value |
+|--------|-------|
+| `X-API-Key` | Your API key |
+
+## Response
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "agentId": "660e8400-e29b-41d4-a716-446655440000",
+  "status": "Completed",
+  "userMessage": "Summarize the Q4 sales report",
+  "finalOutput": "The Q4 sales report shows a 15% increase in revenue...",
+  "errorMessage": null,
+  "stepsExecuted": 3,
+  "tokensUsed": 2450,
+  "actionsUsed": 2,
+  "creditsUsed": 0.85,
+  "createdAt": "2026-03-29T10:00:00Z",
+  "startedAt": "2026-03-29T10:00:01Z",
+  "finishedAt": "2026-03-29T10:00:12Z"
+}
+```
+
+## Run statuses
+
+| Status | Description |
+|--------|-------------|
+| `Pending` | Queued for execution |
+| `Running` | Currently processing |
+| `Completed` | Finished successfully — `finalOutput` is available |
+| `Failed` | Error occurred — check `errorMessage` |
+| `Cancelled` | Run was cancelled |
+
+## Polling pattern
+
+Agent runs are asynchronous. Poll this endpoint to track progress:
+
+```bash
+# Poll every 2 seconds until complete
+while true; do
+  STATUS=$(curl -s https://api.flowyble.com/v1/agents/run/{runId}/status \
+    -H "X-API-Key: flw_key_abc123" | jq -r '.status')
+  echo "Status: $STATUS"
+  if [ "$STATUS" = "Completed" ] || [ "$STATUS" = "Failed" ]; then
+    break
+  fi
+  sleep 2
+done
+```

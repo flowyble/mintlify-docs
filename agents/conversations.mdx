@@ -1,0 +1,45 @@
+---
+title: "Conversations"
+description: "Multi-turn chat interactions with AI agents."
+---
+
+## Overview
+
+A **Conversation** is a sequence of agent runs sharing the same context. When conversation memory is enabled, each new message includes the full conversation history, allowing the agent to maintain context across turns.
+
+## Creating conversations
+
+Conversations are created automatically when you:
+
+- Use the **Chat** interface in the dashboard
+- Send a message via the API with a `conversationId`
+
+## How memory works
+
+When `EnableConversationMemory` is **enabled**:
+
+1. The system loads all previous runs in the conversation
+2. User messages and agent responses are assembled into a message history
+3. The full history is sent to the LLM as part of the prompt
+4. The agent "remembers" everything discussed previously
+
+When **disabled**, each message is processed in isolation — the agent has no memory of previous interactions.
+
+<Warning>
+  Long conversations consume more tokens per message, as the entire history is sent with each request. Monitor your credit usage for high-volume conversations.
+</Warning>
+
+## Chat interface
+
+The built-in **Chat** interface provides a familiar messaging experience:
+
+- Real-time streaming responses via SignalR
+- Conversation history sidebar
+- Support for multiple concurrent conversations
+- Powered by a dedicated **Chat** system agent
+
+## Conversation management
+
+- **View history** — browse all messages and agent responses
+- **Delete conversation** — removes the conversation and all associated runs
+- **Export** — download conversation data for analysis

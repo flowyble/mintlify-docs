@@ -1,0 +1,46 @@
+---
+title: "OAuth2 Authentication"
+description: "How Flowyble handles OAuth2 connections to external services."
+---
+
+## Overview
+
+Most integrations use **OAuth2** for authentication. Flowyble manages the entire OAuth2 flow — token exchange, refresh, and secure storage — so you only need to authorize once.
+
+## How it works
+
+<Steps>
+  <Step title="Initiate connection">
+    Click **Connect** on an integration. Flowyble generates an authorization URL with the correct scopes and redirect URI.
+  </Step>
+  <Step title="Authorize">
+    You're redirected to the external service (e.g. Google) to log in and grant permissions.
+  </Step>
+  <Step title="Token exchange">
+    The service redirects back to Flowyble with an authorization code. Flowyble exchanges it for access and refresh tokens.
+  </Step>
+  <Step title="Stored securely">
+    Tokens are encrypted and stored as an **Integration Account** scoped to your organization.
+  </Step>
+</Steps>
+
+## Token refresh
+
+When an access token expires, Flowyble automatically uses the refresh token to obtain a new one. This happens transparently — you don't need to re-authenticate.
+
+If a refresh token is revoked (e.g. you removed access from the service's settings), you'll need to re-connect the integration.
+
+## Scopes
+
+Each integration requests specific **scopes** (permissions) from the external service. These are defined in the OAuth2 configuration and determine what the integration can access.
+
+<Info>
+  Flowyble only requests the minimum scopes necessary for the integration's tools to function.
+</Info>
+
+## Security
+
+- Tokens are encrypted at rest
+- Each organization has isolated credentials
+- Access can be revoked at any time by disconnecting the integration account
+- OAuth2 state parameter prevents CSRF attacks

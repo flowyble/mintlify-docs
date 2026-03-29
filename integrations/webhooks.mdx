@@ -1,0 +1,66 @@
+---
+title: "Webhooks"
+description: "Trigger agent and tool runs from external systems via HTTP webhooks."
+---
+
+## Overview
+
+Webhooks allow external systems to trigger agent or tool runs by sending HTTP POST requests to a unique URL. This enables event-driven automation — for example, triggering an agent when a form is submitted or a CRM record is updated.
+
+## Setting up a webhook
+
+<Steps>
+  <Step title="Create a trigger">
+    Go to the agent or tool detail page and navigate to **Triggers**. Click **Create Webhook Trigger**.
+  </Step>
+  <Step title="Get the URL">
+    Flowyble generates a unique webhook URL:
+    ```
+    https://api.flowyble.com/webhooks/{token}
+    ```
+    Copy this URL and configure it in your external system.
+  </Step>
+  <Step title="Configure security (optional)">
+    Set up **HMAC signature verification** to ensure webhook requests are authentic. When enabled, Flowyble validates the signature header on each incoming request.
+  </Step>
+</Steps>
+
+## Sending webhook requests
+
+Send a POST request to the webhook URL:
+
+```bash
+curl -X POST https://api.flowyble.com/webhooks/{token} \
+  -H "Content-Type: application/json" \
+  -d '{"event": "form_submitted", "data": {"name": "John", "email": "john@example.com"}}'
+```
+
+The request body is passed as the input to the agent or tool.
+
+### Response
+
+```json
+{
+  "success": true,
+  "runId": "550e8400-e29b-41d4-a716-446655440000",
+  "type": "agent"
+}
+```
+
+## HMAC signature verification
+
+When enabled, your external system must include a signature header computed from the request body and a shared secret:
+
+1. Configure a **secret key** on the webhook trigger
+2. Compute an HMAC-SHA256 hash of the request body using the secret
+3. Include the hash in the request header
+
+Flowyble rejects requests with invalid or missing signatures.
+
+## Rate limiting
+
+Webhook endpoints are rate-limited to **30 requests per 60 seconds** by default. Requests exceeding the limit receive a `429 Too Many Requests` response.
+
+## Credit validation
+
+Before executing a webhook-triggered run, Flowyble validates that the organization has sufficient credits. If credits are insufficient, the webhook returns an error without starting the run.

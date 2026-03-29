@@ -1,0 +1,59 @@
+---
+title: "Get Tool Run Result"
+description: "Get the complete result of a tool run including input and output data."
+---
+
+## Endpoint
+
+```
+GET /v1/tools/run/{toolRunId}/result
+```
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `toolRunId` | `uuid` | The ID of the tool run |
+
+### Headers
+
+| Header | Value |
+|--------|-------|
+| `X-API-Key` | Your API key |
+
+## Response
+
+```json
+{
+  "id": "770e8400-e29b-41d4-a716-446655440000",
+  "toolId": "880e8400-e29b-41d4-a716-446655440000",
+  "toolName": "CSV Processor",
+  "status": "Completed",
+  "statusInt": 2,
+  "inputData": "{\"url\": \"https://example.com/data.csv\", \"format\": \"summary\"}",
+  "outputData": "{\"summary\": \"The dataset contains 1,500 rows...\"}",
+  "outputSchema": "{\"type\": \"object\", \"properties\": {\"summary\": {\"type\": \"string\"}}}",
+  "errorMessage": null,
+  "tokensUsed": 500,
+  "actionsUsed": 3,
+  "duration": 4000
+}
+```
+
+## Response fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `uuid` | Tool run ID |
+| `toolId` | `uuid` | ID of the tool that was executed |
+| `toolName` | `string` | Display name of the tool |
+| `status` | `string` | Run status |
+| `inputData` | `string` | JSON input that was provided |
+| `outputData` | `string` | JSON result produced by the tool |
+| `outputSchema` | `string` | JSON schema describing the output format |
+| `errorMessage` | `string?` | Error details if the run failed |
+| `tokensUsed` | `int` | Total tokens consumed |
+| `actionsUsed` | `int` | Number of function executions |
+| `duration` | `int` | Total execution time in milliseconds |

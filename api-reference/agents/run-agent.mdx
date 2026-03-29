@@ -1,0 +1,74 @@
+---
+title: "Run Agent"
+description: "Execute an agent with a user message."
+---
+
+## Endpoint
+
+```
+POST /v1/agents/run/{agentId}
+```
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `agentId` | `uuid` | The ID of the agent to execute |
+
+### Headers
+
+| Header | Value |
+|--------|-------|
+| `X-API-Key` | Your API key |
+| `Content-Type` | `application/json` |
+
+### Body
+
+```json
+{
+  "userMessage": "Summarize the Q4 sales report"
+}
+```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `userMessage` | `string` | Yes | The message to send to the agent |
+
+## Response
+
+```json
+{
+  "success": true,
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "Pending",
+  "message": "Agent run started"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `success` | `boolean` | Whether the request was accepted |
+| `id` | `uuid` | The agent run ID — use this to poll for results |
+| `status` | `string` | Initial run status (`Pending`) |
+| `message` | `string` | Human-readable status message |
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| `400` | Invalid request, agent inactive, or insufficient credits |
+| `401` | Invalid or missing API key |
+| `403` | API access not enabled on your plan |
+| `404` | Agent not found |
+| `429` | Rate limit exceeded |
+
+## Example
+
+```bash
+curl -X POST https://api.flowyble.com/v1/agents/run/550e8400-e29b-41d4-a716-446655440000 \
+  -H "X-API-Key: flw_key_abc123" \
+  -H "Content-Type: application/json" \
+  -d '{"userMessage": "Summarize the Q4 sales report"}'
+```

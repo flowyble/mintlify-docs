@@ -1,0 +1,85 @@
+---
+title: "Get Run Details"
+description: "Get detailed results including step-by-step execution trace."
+---
+
+## Endpoint
+
+```
+GET /v1/agents/run/{agentRunId}/details
+```
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `agentRunId` | `uuid` | The ID of the agent run |
+
+### Headers
+
+| Header | Value |
+|--------|-------|
+| `X-API-Key` | Your API key |
+
+## Response
+
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "agentId": "660e8400-e29b-41d4-a716-446655440000",
+  "status": "Completed",
+  "userMessage": "Summarize the Q4 sales report",
+  "finalOutput": "The Q4 sales report shows a 15% increase in revenue...",
+  "errorMessage": null,
+  "stepsExecuted": 3,
+  "tokensUsed": 2450,
+  "actionsUsed": 2,
+  "creditsUsed": 0.85,
+  "createdAt": "2026-03-29T10:00:00Z",
+  "startedAt": "2026-03-29T10:00:01Z",
+  "finishedAt": "2026-03-29T10:00:12Z",
+  "steps": [
+    {
+      "stepNumber": 1,
+      "iterationNumber": 1,
+      "toolName": "SearchKnowledge",
+      "inputData": "{\"query\": \"Q4 sales report\"}",
+      "outputData": "{\"results\": [...]}",
+      "reasoning": "I need to find the Q4 sales data to create a summary.",
+      "tokenUsage": {
+        "inputTokens": 850,
+        "outputTokens": 120
+      },
+      "duration": 1200
+    },
+    {
+      "stepNumber": 2,
+      "iterationNumber": 2,
+      "toolName": "SearchKnowledge",
+      "inputData": "{\"query\": \"Q4 revenue breakdown by region\"}",
+      "outputData": "{\"results\": [...]}",
+      "reasoning": "I found the overall numbers. Let me get the regional breakdown.",
+      "tokenUsage": {
+        "inputTokens": 1100,
+        "outputTokens": 150
+      },
+      "duration": 980
+    }
+  ]
+}
+```
+
+## Step fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `stepNumber` | `int` | Sequential step number |
+| `iterationNumber` | `int` | Which LLM iteration this step belongs to |
+| `toolName` | `string` | Name of the function/tool that was called |
+| `inputData` | `string` | JSON input passed to the tool |
+| `outputData` | `string` | JSON result returned by the tool |
+| `reasoning` | `string` | The LLM's chain-of-thought before the tool call |
+| `tokenUsage` | `object` | Input and output token counts for this iteration |
+| `duration` | `int` | Step execution time in milliseconds |

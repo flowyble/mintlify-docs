@@ -1,0 +1,55 @@
+---
+title: "Custom Tools"
+description: "Build your own multi-step workflow automations."
+---
+
+## Creating a custom tool
+
+<Steps>
+  <Step title="Navigate to Tools">
+    Go to **Tools** in the sidebar and click **Create Tool**.
+  </Step>
+  <Step title="Basic information">
+    Set a name, description, and icon for your tool.
+  </Step>
+  <Step title="Define parameters">
+    Specify the input parameters your tool accepts as a JSON schema. These values can be provided when the tool is run.
+  </Step>
+  <Step title="Add steps">
+    Build your workflow by adding steps in sequence. Each step calls a function with specific inputs.
+  </Step>
+  <Step title="Configure output">
+    Optionally define an output schema to structure the tool's final result.
+  </Step>
+</Steps>
+
+## Step configuration
+
+Each step in your tool maps to a function call:
+
+| Field | Description |
+|-------|-------------|
+| **Function** | Which built-in or integration function to execute |
+| **Input mapping** | Map tool parameters or previous step outputs to function inputs |
+| **Step order** | Position in the execution sequence |
+
+## Data flow between steps
+
+Steps can reference outputs from previous steps. Use the step output reference syntax to pass data forward through your workflow.
+
+## Marketplace templates
+
+You can clone tools from the **Marketplace** to get started quickly:
+
+- Browse available templates by category
+- Clone a template to your organization
+- Customize the steps and parameters for your use case
+
+## Running custom tools
+
+Custom tools support all execution methods:
+
+- **Manual** — run from the dashboard with custom input
+- **API** — `POST /v1/tools/run/{toolId}` with JSON body
+- **Webhook** — configure a webhook trigger for external systems
+- **Agent** — attach the tool to an agent for dynamic invocation

@@ -1,33 +1,55 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "API Introduction"
+description: "Integrate Flowyble into your applications with the REST API."
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Overview
 
-## Welcome
+The Flowyble API lets you programmatically execute agents and tools, check run statuses, and retrieve results. All endpoints are versioned and return JSON responses.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+**Base URL:**
+```
+https://api.flowyble.com/v1
+```
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## What you can do
 
-## Authentication
+| Endpoint Group | Description |
+|----------------|-------------|
+| **Agents** | Run agents, check status, get detailed results |
+| **Tools** | Run tools, check status, get results |
+| **Webhooks** | Receive triggers from external systems |
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## Rate limiting
+
+API requests are rate-limited to **100 requests per 60 seconds** per API key. Webhook endpoints have a separate limit of **30 requests per 60 seconds**.
+
+When you exceed the limit, you'll receive a `429 Too Many Requests` response. Wait and retry after the rate limit window resets.
+
+## Response format
+
+All responses follow a consistent JSON structure:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "success": true,
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "status": "Pending",
+  "message": "Agent run started"
+}
 ```
+
+Error responses include details:
+
+```json
+{
+  "success": false,
+  "message": "Insufficient credits"
+}
+```
+
+## Requirements
+
+- **API Access** must be enabled on your subscription plan
+- A valid **API Key** (see [Authentication](/api-reference/authentication))
+- Sufficient **credits** in your organization balance

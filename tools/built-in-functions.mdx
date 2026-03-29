@@ -1,0 +1,42 @@
+---
+title: "Built-in Functions"
+description: "Platform-provided functions available for use in tools and agents."
+---
+
+## Overview
+
+Built-in functions are platform-level operations that can be used as steps in tools or called by agents. They are maintained by the Flowyble team and available to all organizations.
+
+## Function interface
+
+Every function receives a JSON parameters string and returns a result object:
+
+```
+Input: JSON string with function-specific parameters
+Output: Object with function-specific result data
+```
+
+## Available functions
+
+Functions are organized by category and visible in the tool builder. Each function defines:
+
+- **Name** — unique identifier
+- **Description** — what the function does (shown to agents for tool selection)
+- **Parameter schema** — expected JSON input format
+- **Return type** — structure of the output
+
+<Info>
+  The list of available functions grows regularly. Check the **Functions** page in your dashboard for the current catalog.
+</Info>
+
+## Using functions in tools
+
+When building a tool, add steps and select a function for each step:
+
+1. Choose a function from the catalog
+2. Configure input parameters — use static values or reference outputs from previous steps
+3. Set the step order
+
+## Using functions in agents
+
+Agents can call functions directly when they are attached as tools. The function's name and description are included in the LLM prompt, and the agent decides when to call them based on its reasoning.

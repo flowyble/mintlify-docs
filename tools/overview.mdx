@@ -1,0 +1,48 @@
+---
+title: "Tools Overview"
+description: "Multi-step workflow automations composed of built-in functions and integrations."
+---
+
+## What is a Tool?
+
+A **Tool** in Flowyble is a multi-step workflow automation. Unlike agents (which reason freely), tools follow a **predefined sequence of steps** — each step executes a specific function with configured parameters.
+
+Tools are:
+
+- **Deterministic** — same input produces the same sequence of operations
+- **Composable** — chain multiple functions into complex workflows
+- **Reusable** — run manually, via API, or triggered by webhooks
+- **Shareable** — publish to the marketplace as templates
+
+## Tool vs Agent
+
+| Feature | Tool | Agent |
+|---------|------|-------|
+| Execution | Sequential steps | LLM-driven loop |
+| Flexibility | Fixed workflow | Dynamic reasoning |
+| Predictability | High | Variable |
+| Token cost | Only if steps use LLM | Every iteration uses LLM |
+| Best for | Repeatable automations | Open-ended tasks |
+
+## Tool structure
+
+A tool consists of:
+
+- **Name & Description** — identification
+- **Parameters** — input configuration (JSON)
+- **Steps** — ordered list of function calls
+- **Output Schema** — expected output format (optional)
+
+Each step specifies:
+- Which **function** to call
+- **Input mapping** — how to pass data from parameters or previous step outputs
+- **Output handling** — how to process the result
+
+## Running tools
+
+Tools can be executed:
+
+1. **Dashboard** — manual execution from the tool detail page
+2. **API** — `POST /v1/tools/run/{toolId}` with optional input JSON
+3. **Webhook** — external systems trigger execution via HTTP
+4. **Agent** — an agent can call a tool as part of its reasoning

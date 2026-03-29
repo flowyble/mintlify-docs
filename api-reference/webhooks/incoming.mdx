@@ -1,0 +1,88 @@
+---
+title: "Incoming Webhooks"
+description: "Trigger agent and tool runs from external systems."
+---
+
+## Endpoint
+
+```
+POST /webhooks/{token}
+```
+
+<Note>
+  Webhook endpoints do **not** require an API key. Authentication is handled via the unique token in the URL and optional HMAC signature.
+</Note>
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `token` | `string` | Unique webhook trigger token |
+
+### Headers
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `Content-Type` | Yes | `application/json` |
+| `X-Signature` | No | HMAC-SHA256 signature (if configured) |
+
+### Body
+
+```json
+{
+  "event": "order_created",
+  "data": {
+    "orderId": "ORD-12345",
+    "customer": "john@example.com",
+    "total": 99.99
+  }
+}
+```
+
+The entire request body is passed as input to the triggered agent or tool.
+
+## Response
+
+```json
+{
+  "success": true,
+  "runId": "550e8400-e29b-41d4-a716-446655440000",
+  "type": "agent"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `success` | `boolean` | Whether the run was started |
+| `runId` | `uuid` | ID of the created run |
+| `type` | `string` | `"agent"` or `"tool"` — what was triggered |
+
+## HMAC verification
+
+If the trigger has a secret configured, include an HMAC-SHA256 signature:
+
+```bash
+# Compute signature
+SIGNATURE=$(echo -n '{"event":"order_created"}' | openssl dgst -sha256 -hmac "your-secret" | cut -d' ' -f2)
+
+# Send request with signature
+curl -X POST https://api.flowyble.com/webhooks/{token} \
+  -H "Content-Type: application/json" \
+  -H "X-Signature: $SIGNATURE" \
+  -d '{"event":"order_created"}'
+```
+
+## Rate limiting
+
+Webhook endpoints are limited to **30 requests per 60 seconds**. Exceeding this limit returns `429 Too Many Requests`.
+
+## Errors
+
+| Status | Description |
+|--------|-------------|
+| `400` | Invalid request, insufficient credits, or trigger misconfigured |
+| `401` | Invalid HMAC signature |
+| `404` | Webhook token not found |
+| `429` | Rate limit exceeded |

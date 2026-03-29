@@ -1,0 +1,51 @@
+---
+title: "Get Tool Run Status"
+description: "Check the current status of a tool run."
+---
+
+## Endpoint
+
+```
+GET /v1/tools/run/{toolRunId}/status
+```
+
+## Request
+
+### Path parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `toolRunId` | `uuid` | The ID of the tool run |
+
+### Headers
+
+| Header | Value |
+|--------|-------|
+| `X-API-Key` | Your API key |
+
+## Response
+
+```json
+{
+  "id": "770e8400-e29b-41d4-a716-446655440000",
+  "toolId": "880e8400-e29b-41d4-a716-446655440000",
+  "status": "Completed",
+  "statusInt": 2,
+  "errorMessage": null,
+  "tokensUsed": 500,
+  "actionsUsed": 3,
+  "createdAt": "2026-03-29T10:00:00Z",
+  "startedAt": "2026-03-29T10:00:01Z",
+  "finishedAt": "2026-03-29T10:00:05Z",
+  "duration": 4000
+}
+```
+
+## Run statuses
+
+| Status | statusInt | Description |
+|--------|-----------|-------------|
+| `Pending` | 0 | Queued for execution |
+| `Running` | 1 | Currently processing steps |
+| `Completed` | 2 | All steps finished successfully |
+| `Failed` | 3 | Error occurred during execution |
