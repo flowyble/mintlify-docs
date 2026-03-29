@@ -133,5 +133,8 @@
   "appearance": {
     "default": "system"
   },
-  "logo": "/images/120x120.png"
+  "logo": {
+    "light": "/images/logo-full-light.png",
+    "dark": "/images/logo-full-dark.png"
+  }
 }
