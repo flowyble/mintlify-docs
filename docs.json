@@ -9,6 +9,15 @@
   },
   "favicon": "/images/favicon.png",
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "API Reference",
+          "icon": "terminal",
+          "href": "/api-reference/introduction"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Guides",
@@ -89,29 +98,10 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "API Reference",
-          "href": "/api-reference/introduction",
-          "icon": "terminal"
-        },
-        {
-          "anchor": "Changelog",
-          "href": "https://flowyble.com/changelog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@flowyble.com"
-      }
-    ],
+    "links": [],
     "primary": {
       "type": "button",
       "label": "Dashboard",
@@ -134,7 +124,7 @@
     "default": "system"
   },
   "logo": {
-    "light": "/images/logo-full-light2.png",
-    "dark": "/images/logo-full-dark2.png"
+    "light": "/images/logo-full-light.svg",
+    "dark": "/images/logo-full-dark.svg"
   }
 }
